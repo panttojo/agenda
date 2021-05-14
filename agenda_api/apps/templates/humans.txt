@@ -1,0 +1,17 @@
+/* http://humanstxt.org/ */
+/* TEAM */
+
+Your title: Ing.
+Site: panttojo@yandex.com.
+Twitter: panttojo.
+
+/* THANKS */
+
+Name: Daniel Pantoja
+
+/* SITE */
+
+Last update: 2021/05/14
+Standards: HTML5, CSS3,..
+Components: jQuery,...
+Software: Software used for the development

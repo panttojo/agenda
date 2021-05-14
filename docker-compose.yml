@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  agenda_db:
+    container_name: agenda_db
+    image: postgres:12.6-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=agenda
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=agenda_db
