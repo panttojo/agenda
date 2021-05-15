@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     # "django.contrib.humanize",  # Useful template tags
     "apps.base",
+    "apps.core",
     "apps.users",
     "rest_framework",  # http://www.django-rest-framework.org/
     "rest_framework_swagger",

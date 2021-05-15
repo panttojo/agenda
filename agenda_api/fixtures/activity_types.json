@@ -1,0 +1,32 @@
+[
+    {
+        "model": "core.activitytype",
+        "pk": "2fbb37fb-27ea-4669-aafb-5528d1aa2ccb",
+        "fields": {
+            "created_at": "2021-05-15T04:01:36.474Z",
+            "modified_at": "2021-05-15T04:06:42.992Z",
+            "name": "Llamada al Cliente",
+            "value": 30
+        }
+    },
+    {
+        "model": "core.activitytype",
+        "pk": "490d7ead-3efe-4a5f-b901-e39e1b5c0dd1",
+        "fields": {
+            "created_at": "2021-05-15T04:01:54.482Z",
+            "modified_at": "2021-05-15T04:01:54.482Z",
+            "name": "Visita a Propiedad presencial",
+            "value": 180
+        }
+    },
+    {
+        "model": "core.activitytype",
+        "pk": "ed9ed97a-042f-4bf5-af31-6f737e7ffce9",
+        "fields": {
+            "created_at": "2021-05-15T04:02:06.575Z",
+            "modified_at": "2021-05-15T04:02:06.575Z",
+            "name": "Visita Virtual a Propiedad",
+            "value": 90
+        }
+    }
+]

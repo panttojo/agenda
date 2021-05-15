@@ -21,7 +21,7 @@ from apps.api_urls import urlpatterns as api_urls
 from apps.base import views as base_views
 from apps.base.api import schemas as api_schemas
 
-admin.site.site_title = admin.site.site_header = _("Administration")
+admin.site.site_title = admin.site.site_header = _("Agenda | Administration")
 handler500 = base_views.server_error
 
 # Top Level Pages
