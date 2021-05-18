@@ -63,37 +63,35 @@ export const CDataTable = props => {
 
 
     return (
-        <div className="table-responsive">
-            <Datatable
-                tableHeaders={tableHeaders}
-                tableBody={list.loading ? [] : _.get(list.data, "results", [])}
-                rowsPerPage={10}
-                rowsPerPageOption={[1, 10, 20, 50, 100]}
-                initalSort={initalSort}
-                classes={{
-                    table: "table table-bordered table-hover table-striped",
-                    theadCol: css`&.thead-th { font-weight: bold; border-top: 1px solid #eff2f7 !important; }`,
-                    paginationOptsFormText: css` &:first-of-type { margin-right: 8px; } &:last-of-type { margin-left: 8px; }`
-                }}
-                labels={{
-                    first: "<<",
-                    last: ">>",
-                    prev: "<",
-                    next: ">",
-                    show: "Ver ",
-                    entries: ` resultados de ${_.get(list.data, "count", 0)}`,
-                    noResults: list.loading ? <IconBigLoading /> : <>No hay datos para mostrar</>
-                }}
-                async={{
-                    currentPage,
-                    maxPage,
-                    rowsPerPage,
-                    sortedProp,
-                    onSort,
-                    onPaginate,
-                    onRowsPerPageChange,
-                }}
-            />
-        </div>
+        <Datatable
+            tableHeaders={tableHeaders}
+            tableBody={list.loading ? [] : _.get(list.data, "results", [])}
+            rowsPerPage={10}
+            rowsPerPageOption={[1, 10, 20, 50, 100]}
+            initalSort={initalSort}
+            classes={{
+                table: "table table-bordered table-hover table-striped",
+                theadCol: css`&.thead-th { font-weight: bold; border-top: 1px solid #eff2f7 !important; }`,
+                paginationOptsFormText: css` &:first-of-type { margin-right: 8px; } &:last-of-type { margin-left: 8px; }`
+            }}
+            labels={{
+                first: "<<",
+                last: ">>",
+                prev: "<",
+                next: ">",
+                show: "Ver ",
+                entries: ` resultados de ${_.get(list.data, "count", 0)}`,
+                noResults: list.loading ? <IconBigLoading /> : <>No hay datos para mostrar</>
+            }}
+            async={{
+                currentPage,
+                maxPage,
+                rowsPerPage,
+                sortedProp,
+                onSort,
+                onPaginate,
+                onRowsPerPageChange,
+            }}
+        />
     )
 }

@@ -94,8 +94,6 @@ let Users = props => {
             delete payload["password"]
         }
 
-        console.log(payload);
-
         update(props.id, payload)
     }
 

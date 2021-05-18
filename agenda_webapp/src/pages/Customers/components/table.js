@@ -28,17 +28,8 @@ export const ListTable = props => {
 
     const header = [
         {
-            title: "Nombre de usuario",
-            prop: "username",
-            sortable: true,
-        },
-        {
             title: "Nombre",
-            prop: "full_name"
-        },
-        {
-            title: "Email",
-            prop: "email",
+            prop: "name"
         },
         {
             title: "Acciones",
