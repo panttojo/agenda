@@ -84,7 +84,7 @@ export const ListTable = props => {
                     tableHeaders={header}
                     handleReload={handleReload}
                     loading={list.loading}
-                    initalSort={{ prop: "name", isAscending: true }}
+                    initalSort={{ prop: "username", isAscending: true }}
                 />
             </Col>
         </Row>

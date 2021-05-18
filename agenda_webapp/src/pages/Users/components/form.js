@@ -22,7 +22,7 @@ export let EditableForm = props => {
     const { register, handleSubmit, errors, reset, watch } = useForm()
     const {
         data,
-        handleOnSubmit
+        handleOnSubmit,
     } = props
 
     const err = getErrors(props.errors)
@@ -201,5 +201,4 @@ export let EditableForm = props => {
             </Row>
         </Form>
     )
-
 }

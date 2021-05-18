@@ -13,12 +13,22 @@ from apps.core.models import (
 
 
 class CustomerViewSet(MultipleSerializerMixin, CustomModelViewSet):
-    queryset = Customer.objects.all()
     permission_classes = (CRUDModelPermissions,)
     serializer_class = serializers.CustomerSerializer
     serializer_classes = {
-        "get_all": serializers.CustomerGetAllSerializer
+        "get_all": serializers.CustomerGetAllSerializer,
+        "list": serializers.CustomerListSerializer,
+        "retrieve": serializers.CustomerListSerializer,
     }
+
+    def get_queryset(self):
+        user = self.request.user
+        customers = Customer.objects.all()
+
+        if not user.is_superuser:
+            customers = customers.filter(user=user)
+
+        return customers
 
 
 class ActivityTypeViewSet(MultipleSerializerMixin, CustomModelViewSet):

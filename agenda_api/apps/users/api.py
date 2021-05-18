@@ -9,7 +9,7 @@ from apps.users.models import User
 
 
 class UserViewSet(MultipleSerializerMixin, CustomModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.filter(is_superuser=False)
     permission_classes = (CRUDModelPermissions,)
     serializer_class = serializers.UserSerializer
     serializer_classes = {

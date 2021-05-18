@@ -9,14 +9,26 @@ from apps.users.serializers import UserGetAllSerializer
 # Customer
 # ------------------------------------------------------------------------------
 class CustomerSerializer(serializers.ModelSerializer):
+    user = serializers.UUIDField(required=False)
+
     class Meta:
         model = models.Customer
         fields = (
             "id",
             "name",
+            "user",
             "created_at",
             "modified_at",
         )
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+
+        if user.is_superuser and validated_data.get("user", False):
+            user = validated_data.get("user")
+
+        payload = {**validated_data, "user": user}
+        return super(CustomerSerializer, self).create(payload)
 
 
 class CustomerGetAllSerializer(serializers.ModelSerializer):
@@ -25,6 +37,18 @@ class CustomerGetAllSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
+        )
+
+
+class CustomerListSerializer(serializers.ModelSerializer):
+    user = UserGetAllSerializer()
+
+    class Meta:
+        model = models.Customer
+        fields = (
+            "id",
+            "name",
+            "user",
         )
 
 

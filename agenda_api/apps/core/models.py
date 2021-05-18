@@ -9,6 +9,7 @@ from apps.users.models import User
 
 class Customer(TimeStampedUUIDModel):
     name = models.CharField(_("name"), max_length=254, help_text=_("full name"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="customers")
 
     class Meta:
         verbose_name = _("customer")
@@ -53,7 +54,7 @@ class Activity(TimeStampedUUIDModel):
 
     type = models.ForeignKey(ActivityType, on_delete=models.CASCADE, verbose_name=_("activity type"))
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name=_("customer"))
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("seller"))
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("seller"), related_name="activities")
 
     objects = ActivityManager()
 

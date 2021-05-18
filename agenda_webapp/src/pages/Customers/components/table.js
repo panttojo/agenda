@@ -1,4 +1,6 @@
 import React from "react"
+import _ from "lodash"
+import { connect } from "react-redux"
 import {
     Row,
     Col,
@@ -13,7 +15,7 @@ import { EditButton, DeleteButton } from "../../../components/Buttons"
 import { CDataTable } from "../../../components/CDataTable"
 
 
-export const ListTable = props => {
+export let ListTable = props => {
 
     const {
         handleRetrieve,
@@ -22,15 +24,28 @@ export const ListTable = props => {
         list,
         detail,
         remove,
+        auth,
     } = props
 
     const err = getErrors(list.errors)
 
-    const header = [
+    let header = [
         {
             title: "Nombre",
-            prop: "name"
+            prop: "name",
+            sortable: true,
         },
+    ]
+
+    if (_.get(auth.data, "is_superuser", false)) {
+        header.push({
+            title: "Vendedor",
+            prop: "user",
+            cell: row => `${_.get(row.user, "username", "")} | ${_.get(row.user, "full_name", "")}`
+        })
+    }
+
+    header.push(
         {
             title: "Acciones",
             prop: "id",
@@ -50,7 +65,7 @@ export const ListTable = props => {
                 </>
             )
         },
-    ]
+    )
 
 
     return (
@@ -81,3 +96,12 @@ export const ListTable = props => {
         </Row>
     )
 }
+
+
+const mapStateToProps = ({ auth }) => {
+    return {
+        auth
+    }
+}
+
+ListTable = connect(mapStateToProps, {})(ListTable)
