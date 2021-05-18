@@ -8,6 +8,7 @@ from apps.core.api import (
     ActivityViewSet,
     CustomerViewSet,
 )
+from apps.users.api import UserViewSet
 from apps.users.auth.api import AuthViewSet
 
 default_router = DefaultRouter(trailing_slash=False)
@@ -18,6 +19,7 @@ default_router.register("auth", AuthViewSet, basename="auth")
 default_router.register("activities", ActivityViewSet, basename="activities")
 default_router.register("activity-types", ActivityTypeViewSet, basename="activity-types")
 default_router.register("customers", CustomerViewSet, basename="customers")
+default_router.register("users", UserViewSet, basename="users")
 
 # Combine urls from both default and singleton routers and expose as
 # 'urlpatterns' which django can pick up from this module.

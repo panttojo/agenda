@@ -10,7 +10,7 @@ const authUser = process.env.REACT_APP_LOCAL_STORAGE_USER
 export const API = axios.create({
     baseURL: API_V1,
     responseType: 'json',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
 });
 
 API.interceptors.request.use(function (config) {
@@ -44,7 +44,6 @@ API.interceptors.response.use(
                         errors: [{ message: error_response.request.statusText }]
                     })
                 default:
-                    console.log(Object(error_response.data));
                     throw Object(error_response.data)
             }
         }

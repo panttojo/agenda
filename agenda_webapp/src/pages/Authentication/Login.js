@@ -158,6 +158,8 @@ const mapStatetoProps = state => {
         data,
     } = state.auth
 
+    console.log(state.auth);
+
     return {
         loading,
         errors,

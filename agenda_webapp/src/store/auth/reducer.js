@@ -17,9 +17,9 @@ const singleObj = {
 
 const initialState = singleObj
 
-
 const authUser = process.env.REACT_APP_LOCAL_STORAGE_USER
-initialState.data = localStorage.getItem(authUser) ? { ...JSON.parse(localStorage.getItem(authUser)) } : singleObj
+initialState.data = localStorage.getItem(authUser) ? { ...JSON.parse(localStorage.getItem(authUser)) } : {}
+
 
 const users = (state = initialState, action) => {
 	switch (action.type) {
@@ -65,12 +65,7 @@ const users = (state = initialState, action) => {
 			}
 			break
 		case LOGOUT_SUCCESS:
-			state = {
-				...state,
-				loading: false,
-				success: true,
-				data: {}
-			}
+			state = { ...initialState }
 			break
 		case LOGOUT_ERROR:
 			state = {

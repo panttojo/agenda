@@ -97,18 +97,6 @@ a:hover {
     background-color: $primary !important;
 }
 
-.leaflet-container {
-    height: 620px;
-    width: 100%;
-}
-
-.marker-cluster {
-    background: #2a3042;
-    border: 3px solid #ededed;
-    border-radius: 50%;
-    color: #fff;
-    height: 40px;
-    line-height: 37px;
-    text-align: center;
-    width: 40px;
+.controlRow__root {
+    padding-bottom: 20px;
 }

@@ -1,10 +1,10 @@
 import React from "react"
 
 
-const Dashboard = props => {
+let Customers = props => {
     return (
         <div></div>
     )
 }
 
-export default Dashboard
+export default Customers

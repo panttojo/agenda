@@ -15,7 +15,7 @@ def get_token_for_user(user, scope: str) -> str:
 
 def get_user_for_token(token: str, scope: str):
     try:
-        data = jwt.decode(token, settings.SECRET_KEY)
+        data = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
     except jwt.DecodeError:
         raise exc.NotAuthenticated(_("Invalid token"))
 

@@ -36,11 +36,11 @@ export function* watchUserLogout() {
 	yield takeEvery(LOGOUT_REQUEST, logout)
 }
 
-function* usersSaga() {
+function* saga() {
 	yield all([
 		fork(watchUserLogin),
 		fork(watchUserLogout),
 	])
 }
 
-export default usersSaga
+export default saga

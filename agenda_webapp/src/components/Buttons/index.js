@@ -1,6 +1,7 @@
 import React from "react"
 import {
     Button,
+    UncontrolledTooltip,
 } from "reactstrap"
 
 import { IconLoading } from "../Icons"
@@ -17,8 +18,10 @@ export const EditButton = props => {
             color="info"
             size="sm"
             onClick={click}
+            id="editar"
         >
             {loading ? <IconLoading /> : <i className="fa fa-edit" />}
+            <UncontrolledTooltip placement="right" target="editar">Editar</UncontrolledTooltip>
         </Button >
     )
 }
@@ -34,8 +37,10 @@ export const DeleteButton = props => {
             color="danger"
             size="sm"
             onClick={click}
+            id="eliminar"
         >
             {loading ? <IconLoading /> : <i className="fa fa-trash" />}
+            <UncontrolledTooltip placement="right" target="eliminar">Eliminar</UncontrolledTooltip>
         </Button >
     )
 }

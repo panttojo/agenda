@@ -72,9 +72,21 @@ class SidebarContent extends Component {
                 <ul className="metismenu list-unstyled" id="side-menu">
                     <li className="menu-title">Menu</li>
                     <li>
-                        <Link to="/#" className="waves-effect">
+                        <Link to="/dashboard" className="waves-effect">
                             <i className="fa fa-tachometer-alt"></i>
                             <span>Dashboard</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/vendedores" className="waves-effect">
+                            <i className="fa fa-tachometer-alt"></i>
+                            <span>Vendedores</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/clientes" className="waves-effect">
+                            <i className="fa fa-tachometer-alt"></i>
+                            <span>Clientes</span>
                         </Link>
                     </li>
                 </ul>
