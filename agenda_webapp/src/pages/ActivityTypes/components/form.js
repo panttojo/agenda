@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import _ from "lodash"
+import React, { useEffect } from "react"
 import { connect } from "react-redux"
 
 import { useForm } from "react-hook-form"
@@ -27,30 +26,17 @@ export let EditableForm = props => {
         getAllUsers,
         data,
         handleOnSubmit,
-        auth,
-        users,
     } = props
 
     const err = getErrors(props.errors)
     const totalErrors = Object.keys(errors).length + err.totalErrors
-
-    const [user, setUser] = useState(null)
-
 
     useEffect(() => {
         getAllUsers()
     }, [getAllUsers])
 
     useEffect(() => {
-        const payload = { ...data }
-        if (_.get(data, "user", false)) {
-            payload["user"] = _.get(data, "id", null)
-            setUser({
-                id: _.get(data, "id", null),
-                label: `${_.get(data.user, "username")} ${_.get(data.user, "full_name")}`,
-            })
-        }
-        reset(payload)
+        reset(data)
     }, [reset, data])
 
 
@@ -124,13 +110,6 @@ export let EditableForm = props => {
 
 }
 
-const mapStateToProps = ({ auth, users }) => {
-    return {
-        auth,
-        users,
-    }
-}
-
-EditableForm = connect(mapStateToProps, {
+EditableForm = connect(null, {
     getAllUsers: userActions.getAllOptionsRequest,
 })(EditableForm)

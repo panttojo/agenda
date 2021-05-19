@@ -86,7 +86,7 @@ export let EditableForm = props => {
         } else {
             getAllCustomers()
         }
-    }, [getAllSellers, cleanErrors])
+    }, [getAllSellers, getAllCustomers, cleanErrors])
 
     const handleSubmitData = data => {
         const payload = {
