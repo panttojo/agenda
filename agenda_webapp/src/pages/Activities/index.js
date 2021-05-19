@@ -79,16 +79,13 @@ let Customers = props => {
     }, [remove, getAll, params])
 
     const handleReload = props => {
-        const newParams = {...params, ...props}
+        const newParams = { ...params, ...props }
         setParams(newParams)
         getAll(newParams)
     }
 
     const handleOnChangeFilter = props => {
-        console.log(params);
-        console.log(props);
-        const newParams = {...params, ...props}
-        console.log(newParams);
+        const newParams = { ...params, ...props }
         setParams(newParams)
         getAll(newParams)
     }

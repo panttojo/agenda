@@ -18,10 +18,10 @@ export const EditButton = props => {
             color="info"
             size="sm"
             onClick={click}
-            id="editar"
+            id="edit"
         >
             {loading ? <IconLoading /> : <i className="fa fa-edit" />}
-            <UncontrolledTooltip placement="right" target="editar">Editar</UncontrolledTooltip>
+            <UncontrolledTooltip placement="right" target="edit">Editar</UncontrolledTooltip>
         </Button >
     )
 }
@@ -37,10 +37,29 @@ export const DeleteButton = props => {
             color="danger"
             size="sm"
             onClick={click}
-            id="eliminar"
+            id="delete"
         >
             {loading ? <IconLoading /> : <i className="fa fa-trash" />}
-            <UncontrolledTooltip placement="right" target="eliminar">Eliminar</UncontrolledTooltip>
+            <UncontrolledTooltip placement="right" target="delete">Eliminar</UncontrolledTooltip>
+        </Button >
+    )
+}
+
+export const CancelSButton = props => {
+    const {
+        loading,
+        click,
+    } = props
+
+    return (
+        <Button
+            color="danger"
+            size="sm"
+            onClick={click}
+            id="cancel"
+        >
+            {loading ? <IconLoading /> : <i className="fa fa-ban" />}
+            <UncontrolledTooltip placement="right" target="cancel">Cancelar</UncontrolledTooltip>
         </Button >
     )
 }

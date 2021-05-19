@@ -4,6 +4,9 @@ from datetime import timedelta
 # Third Party Stuff
 from django.db import models
 
+# Agenda Stuff
+from apps.core.models import Activity
+
 
 def validate_activity(instance, seller, data):
     activities = seller.activities.all()
@@ -20,6 +23,6 @@ def validate_activity(instance, seller, data):
         | models.Q(finish_at__range=intervals)
     )
 
-    some_activity = activities.filter(filters).exists()
+    some_activity = activities.filter(filters, status=Activity.ACTIVE).exists()
 
     return not some_activity

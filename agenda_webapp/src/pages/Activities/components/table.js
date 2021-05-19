@@ -13,7 +13,7 @@ import { getErrors } from "../../../helpers/utils"
 import { DATE_TIME_FMT } from "../../../helpers/dates"
 
 // components
-import { EditButton, DeleteButton } from "../../../components/Buttons"
+import { EditButton, CancelSButton } from "../../../components/Buttons"
 import { CDataTable } from "../../../components/CDataTable"
 
 
@@ -72,6 +72,7 @@ export let ListTable = props => {
         title: "Acciones",
         prop: "id",
         cell: row => (
+            row.status === "active" &&
             <>
                 <EditButton
                     loading={detail.loading}
@@ -79,7 +80,7 @@ export let ListTable = props => {
                     title="Editar"
                 />
                 {" "}
-                <DeleteButton
+                <CancelSButton
                     loading={remove.loading}
                     click={() => { handleDestroy(row) }}
                     title="Eliminar"
