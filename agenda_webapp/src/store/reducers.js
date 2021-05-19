@@ -5,6 +5,8 @@ import Layout from "./layout/reducer"
 import auth from "./auth/reducer"
 import users from "./users/reducer"
 import customers from "./customers/reducer"
+import activities from "./activities/reducer"
+import activity_types from "./activity_types/reducer"
 
 
 const rootReducer = combineReducers({
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
     auth,
     users,
     customers,
+    activities,
+    activity_types,
 })
 
 export default rootReducer

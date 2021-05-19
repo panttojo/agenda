@@ -9,24 +9,22 @@ import {
     CardBody,
     Button,
     Modal,
-    Alert,
 } from "reactstrap"
 import SweetAlert from "react-bootstrap-sweetalert"
 
-// utils
-import { getErrors } from "../../helpers/utils"
-
 // actions
-import customerActions from "../../store/customers/actions"
+import activityActions from "../../store/activities/actions"
+import activityTypeActions from "../../store/activity_types/actions"
 
 // components
 import Breadcrumbs from "../../components/Breadcrumb"
 import { IconLoading } from '../../components/Icons'
-import { ListTable, EditableForm } from "./components"
+import { ListTable, EditableForm, Filters } from "./components"
 
 
 let Customers = props => {
     const {
+        getAllActivityTypes,
         getAll,
         create,
         retrieve,
@@ -37,9 +35,8 @@ let Customers = props => {
         edit,
         list,
         remove,
+        activity_types,
     } = props
-
-    const err = getErrors(remove.errors)
 
     const [params, setParams] = useState({})
 
@@ -52,6 +49,10 @@ let Customers = props => {
     const [itemDelete, setItemToDelete] = useState({})
     const [showConfirmDeleteAlert, setShowConfirmDeleteAlert] = useState(false)
     const [showDeletedAlert, setShowDeletedAlert] = useState(false)
+
+    useEffect(() => {
+        getAllActivityTypes()
+    }, [getAllActivityTypes])
 
     useEffect(() => {
         if (original.success) {
@@ -77,15 +78,19 @@ let Customers = props => {
         }
     }, [remove, getAll, params])
 
-    useEffect(() => {
-        if (remove.errors) {
-            setShowConfirmDeleteAlert(false)
-        }
-    }, [remove, getAll, params])
-
     const handleReload = props => {
-        setParams(props)
-        getAll(props)
+        const newParams = {...params, ...props}
+        setParams(newParams)
+        getAll(newParams)
+    }
+
+    const handleOnChangeFilter = props => {
+        console.log(params);
+        console.log(props);
+        const newParams = {...params, ...props}
+        console.log(newParams);
+        setParams(newParams)
+        getAll(newParams)
     }
 
     const handleOnCreate = props => {
@@ -110,7 +115,7 @@ let Customers = props => {
         <React.Fragment>
             {showCreatedAlert &&
                 <SweetAlert
-                    title="Cliente creado satisfactoriamente."
+                    title="Actividad creada satisfactoriamente."
                     success
                     confirmBtnBsStyle="success"
                     onConfirm={() => setShowCreatedAlert(false)}
@@ -118,7 +123,7 @@ let Customers = props => {
             }
             {showConfirmDeleteAlert &&
                 <SweetAlert
-                    title={`¿Está seguro de eliminar el Cliente: ${itemDelete.name}?`}
+                    title={`¿Está seguro de eliminar la Actividad?`}
                     warning
                     showCancel
                     confirmBtnBsStyle="success"
@@ -131,7 +136,7 @@ let Customers = props => {
             }
             {showDeletedAlert &&
                 <SweetAlert
-                    title="Cliente eliminado satisfactoriamente."
+                    title="Actividad eliminada satisfactoriamente."
                     success
                     confirmBtnBsStyle="success"
                     onConfirm={() => setShowDeletedAlert(false)}
@@ -139,7 +144,7 @@ let Customers = props => {
             }
             {showUpdatedAlert &&
                 <SweetAlert
-                    title="Cliente actualizado satisfactoriamente."
+                    title="Actividad actualizada satisfactoriamente."
                     success
                     confirmBtnBsStyle="success"
                     onConfirm={() => setShowUpdatedAlert(false)}
@@ -147,23 +152,12 @@ let Customers = props => {
             }
             <div className="page-content">
                 <Container fluid>
-                    <Breadcrumbs title="Inicio" breadcrumbItem="Clientes" />
+                    <Breadcrumbs title="Inicio" breadcrumbItem="Actividades" />
 
                     <Row>
                         <Col>
                             <Card>
                                 <CardBody>
-                                    <Row>
-                                        <Col>
-                                            {err.generalErrors ?
-                                                err.generalErrors.map((error, key) =>
-                                                    <Alert key={key} color="danger">
-                                                        {error.message}
-                                                    </Alert>
-                                                ) : null
-                                            }
-                                        </Col>
-                                    </Row>
                                     <Row className="mb-4">
                                         <Col className="text-right">
                                             <Button
@@ -178,6 +172,10 @@ let Customers = props => {
                                     </Row>
                                     <Row>
                                         <Col>
+                                            <Filters
+                                                handleOnChangeFilter={handleOnChangeFilter}
+                                                activity_types={activity_types}
+                                            />
                                             <ListTable
                                                 list={list}
                                                 detail={detail}
@@ -202,7 +200,7 @@ let Customers = props => {
                 size="lg"
             >
                 <div className="modal-header">
-                    <h5 className="modal-title mt-0">Agregar Cliente</h5>
+                    <h5 className="modal-title mt-0">Agregar Actividad</h5>
                     <button
                         type="button"
                         onClick={() => setShowAddModal(false)}
@@ -243,7 +241,7 @@ let Customers = props => {
                 size="lg"
             >
                 <div className="modal-header">
-                    <h5 className="modal-title mt-0">Editar Cliente: <strong>{_.get(detail.data, "name")}</strong></h5>
+                    <h5 className="modal-title mt-0">Editar Actividad: <strong>{_.get(detail.data, "id")}</strong></h5>
                     <button
                         type="button"
                         onClick={() => setShowEditModal(false)}
@@ -283,13 +281,14 @@ let Customers = props => {
 
 
 const mapStateToProps = ({
-    customers: {
+    activities: {
         original,
         detail,
         edit,
         list,
         remove
-    }
+    },
+    activity_types,
 }) => {
     return {
         original,
@@ -297,13 +296,15 @@ const mapStateToProps = ({
         edit,
         list,
         remove,
+        activity_types,
     }
 }
 
 export default Customers = connect(mapStateToProps, {
-    getAll: customerActions.getAllRequest,
-    create: customerActions.createRequest,
-    retrieve: customerActions.retrieveRequest,
-    update: customerActions.updateRequest,
-    destroy: customerActions.destroyRequest,
+    getAllActivityTypes: activityTypeActions.getAllOptionsRequest,
+    getAll: activityActions.getAllRequest,
+    create: activityActions.createRequest,
+    retrieve: activityActions.retrieveRequest,
+    update: activityActions.updateRequest,
+    destroy: activityActions.destroyRequest,
 })(Customers)

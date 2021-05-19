@@ -35,18 +35,15 @@ export let ListTable = props => {
             prop: "name",
             sortable: true,
         },
+        {
+            title: "Valor en minutos",
+            prop: "value",
+            sortable: true,
+        },
     ]
 
     if (_.get(auth.data, "is_superuser", false)) {
         header.push({
-            title: "Vendedor",
-            prop: "seller",
-            cell: row => `${_.get(row.seller, "username", "")} | ${_.get(row.seller, "full_name", "")}`
-        })
-    }
-
-    header.push(
-        {
             title: "Acciones",
             prop: "id",
             cell: row => (
@@ -64,8 +61,8 @@ export let ListTable = props => {
                     />
                 </>
             )
-        },
-    )
+        })
+    }
 
 
     return (

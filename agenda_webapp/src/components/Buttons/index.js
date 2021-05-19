@@ -48,7 +48,7 @@ export const DeleteButton = props => {
 export const CancelButton = props => {
     const {
         loading,
-        onClick
+        onClick,
     } = props
 
     return (
@@ -65,7 +65,7 @@ export const CancelButton = props => {
 export const CloseButton = props => {
     const {
         loading,
-        onClick
+        onClick,
     } = props
 
     return (
@@ -82,7 +82,7 @@ export const CloseButton = props => {
 export const SaveButton = props => {
     const {
         loading,
-        onClick
+        onClick,
     } = props
 
     return (
@@ -99,7 +99,7 @@ export const SaveButton = props => {
 export const NewButton = props => {
     const {
         loading,
-        onClick
+        onClick,
     } = props
 
     return (

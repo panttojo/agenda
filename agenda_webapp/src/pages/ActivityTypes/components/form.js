@@ -13,7 +13,6 @@ import {
     FormGroup,
     FormText,
 } from "reactstrap"
-import Select from "react-select"
 
 // utils
 import { getErrors } from "../../../helpers/utils"
@@ -29,13 +28,13 @@ export let EditableForm = props => {
         data,
         handleOnSubmit,
         auth,
-        sellers,
+        users,
     } = props
 
     const err = getErrors(props.errors)
     const totalErrors = Object.keys(errors).length + err.totalErrors
 
-    const [seller, setSeller] = useState(null)
+    const [user, setUser] = useState(null)
 
 
     useEffect(() => {
@@ -44,11 +43,11 @@ export let EditableForm = props => {
 
     useEffect(() => {
         const payload = { ...data }
-        if (_.get(data, "seller", false)) {
-            payload["seller"] = _.get(data.seller, "id", null)
-            setSeller({
+        if (_.get(data, "user", false)) {
+            payload["user"] = _.get(data, "id", null)
+            setUser({
                 id: _.get(data, "id", null),
-                label: `${_.get(data.seller, "username")} | ${_.get(data.seller, "full_name")}`,
+                label: `${_.get(data.user, "username")} ${_.get(data.user, "full_name")}`,
             })
         }
         reset(payload)
@@ -95,46 +94,31 @@ export let EditableForm = props => {
                     </FormGroup>
                 </Col>
             </Row>
-
-            {_.get(auth.data, "is_superuser") &&
-                <Row>
-                    <Col>
-                        <FormGroup>
-                            <Label htmlFor="seller">Vendedor <span className="text-danger">*</span></Label>
-                            <Input
-                                style={{ display: "none" }}
-                                type="text"
-                                name="seller"
-                                id="seller"
-                                required
-                                value={_.get(seller, "value", "")}
-                                innerRef={register({ required: true })}
-                            />
-                            <Select
-                                placeholder="Seleccionar..."
-                                options={
-                                    sellers.options.data.map(row => (
-                                        { label: `${row.username} | ${row.full_name}`, value: row.id }
-                                    ))
-                                }
-                                value={seller}
-                                isLoading={sellers.options.loading}
-                                onChange={setSeller}
-                            />
-                            {errors.seller && errors.seller.type === "required" && (
-                                <FormText color="danger">
-                                    Este campo es obligatorio
-                                </FormText>
-                            )}
-                            {err.validationErrors.find(error => error.field === "seller") && (
-                                <FormText color="danger">
-                                    {err.validationErrors.find(error => error.field === "seller").message}
-                                </FormText>
-                            )}
-                        </FormGroup>
-                    </Col>
-                </Row>
-            }
+            <Row>
+                <Col>
+                    <FormGroup>
+                        <Label htmlFor="value">Valor en minutos <span className="text-danger">*</span></Label>
+                        <Input
+                            type="number"
+                            name="value"
+                            id="value"
+                            min={1}
+                            required
+                            innerRef={register({ required: true })}
+                        />
+                        {errors.value && errors.value.type === "required" && (
+                            <FormText color="danger">
+                                Este campo es obligatorio
+                            </FormText>
+                        )}
+                        {err.validationErrors.find(error => error.field === "value") && (
+                            <FormText color="danger">
+                                {err.validationErrors.find(error => error.field === "value").message}
+                            </FormText>
+                        )}
+                    </FormGroup>
+                </Col>
+            </Row>
         </Form>
     )
 
@@ -143,7 +127,7 @@ export let EditableForm = props => {
 const mapStateToProps = ({ auth, users }) => {
     return {
         auth,
-        sellers: users,
+        users,
     }
 }
 

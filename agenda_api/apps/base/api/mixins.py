@@ -1,5 +1,6 @@
 # Third Party Stuff
 from django.core.exceptions import ImproperlyConfigured
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
@@ -39,7 +40,7 @@ class MultipleSerializerMixin(object):
 
 
 class CustomModelViewSet(viewsets.ModelViewSet):
-    filter_backends = (InsensitiveOrderingFilter, SearchFilter)
+    filter_backends = (DjangoFilterBackend, InsensitiveOrderingFilter, SearchFilter,)
     ordering_fields = "__all__"
 
     @action(detail=False, methods=["get"], url_path="all", url_name="all")

@@ -1,33 +1,33 @@
 # Third Party Stuff
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 # Agenda Stuff
 from apps.core import models
+from apps.core.services import validate_activity
 from apps.users.serializers import UserGetAllSerializer
 
 
 # Customer
 # ------------------------------------------------------------------------------
 class CustomerSerializer(serializers.ModelSerializer):
-    user = serializers.UUIDField(required=False)
-
     class Meta:
         model = models.Customer
         fields = (
             "id",
             "name",
-            "user",
+            "seller",
             "created_at",
             "modified_at",
         )
 
     def create(self, validated_data):
-        user = self.context["request"].user
+        seller = self.context["request"].user
 
-        if user.is_superuser and validated_data.get("user", False):
-            user = validated_data.get("user")
+        if seller.is_superuser and validated_data.get("seller", False):
+            seller = validated_data.get("seller")
 
-        payload = {**validated_data, "user": user}
+        payload = {**validated_data, "seller": seller}
         return super(CustomerSerializer, self).create(payload)
 
 
@@ -41,14 +41,14 @@ class CustomerGetAllSerializer(serializers.ModelSerializer):
 
 
 class CustomerListSerializer(serializers.ModelSerializer):
-    user = UserGetAllSerializer()
+    seller = UserGetAllSerializer()
 
     class Meta:
         model = models.Customer
         fields = (
             "id",
             "name",
-            "user",
+            "seller",
         )
 
 
@@ -61,6 +61,7 @@ class ActivityTypeSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "value",
+            "description",
             "created_at",
             "modified_at",
         )
@@ -72,6 +73,8 @@ class ActivityTypeGetAllSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
+            "value",
+            "description",
         )
 
 
@@ -85,6 +88,7 @@ class ActivitySerializer(serializers.ModelSerializer):
             "schedule_at",
             "notes",
             "status",
+            "status_label",
             "type",
             "customer",
             "seller",
@@ -92,10 +96,32 @@ class ActivitySerializer(serializers.ModelSerializer):
             "modified_at",
         )
 
+    def validate(self, data):
+        seller = self.context["request"].user
+
+        if seller.is_superuser and data.get("seller", False):
+            seller = data.get("seller")
+
+        is_valid = validate_activity(self.instance, seller, data)
+
+        if not is_valid:
+            raise serializers.ValidationError(_("There is currently an activity scheduled for this date."))
+
+        return data
+
+    def create(self, validated_data):
+        seller = self.context["request"].user
+
+        if seller.is_superuser and validated_data.get("seller", False):
+            seller = validated_data.get("seller")
+
+        payload = {**validated_data, "seller": seller}
+        return super(ActivitySerializer, self).create(payload)
+
 
 class ActivityGetAllSerializer(serializers.ModelSerializer):
     customer = CustomerGetAllSerializer()
-    type = ActivityTypeSerializer()
+    type = ActivityTypeGetAllSerializer()
 
     class Meta:
         model = models.Activity
@@ -110,7 +136,7 @@ class ActivityGetAllSerializer(serializers.ModelSerializer):
 class ActivityRetrieveSerializer(serializers.ModelSerializer):
     customer = CustomerGetAllSerializer()
     seller = UserGetAllSerializer()
-    type = ActivityTypeSerializer()
+    type = ActivityTypeGetAllSerializer()
 
     class Meta:
         model = models.Activity
@@ -121,5 +147,6 @@ class ActivityRetrieveSerializer(serializers.ModelSerializer):
             "seller",
             "type",
             "notes",
-            "status"
+            "status",
+            "status_label",
         )

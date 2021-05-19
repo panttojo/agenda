@@ -1,9 +1,9 @@
 # Third Party Stuff
 from django.db.models.functions import Lower
-from rest_framework.filters import OrderingFilter
+from rest_framework import filters
 
 
-class InsensitiveOrderingFilter(OrderingFilter):
+class InsensitiveOrderingFilter(filters.OrderingFilter):
     def filter_queryset(self, request, queryset, view):
         ordering = self.get_ordering(request, queryset, view)
 

@@ -89,6 +89,18 @@ class SidebarContent extends Component {
                             <span>Clientes</span>
                         </Link>
                     </li>
+                    <li>
+                        <Link to="/tipos-de-actividad" className="waves-effect">
+                            <i className="fa fa-tachometer-alt"></i>
+                            <span>Tipos de Actividad</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/actividades" className="waves-effect">
+                            <i className="fa fa-tachometer-alt"></i>
+                            <span>Actividades</span>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         )

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import _ from "lodash"
 import { connect } from "react-redux"
 import {
     Container,
@@ -18,7 +19,6 @@ import userActions from "../../store/users/actions"
 import Breadcrumbs from "../../components/Breadcrumb"
 import { IconLoading } from '../../components/Icons'
 import { ListTable, EditableForm } from "./components"
-import _ from "lodash"
 
 
 let Users = props => {

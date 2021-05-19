@@ -9,15 +9,11 @@ import {
     CardBody,
     Button,
     Modal,
-    Alert,
 } from "reactstrap"
 import SweetAlert from "react-bootstrap-sweetalert"
 
-// utils
-import { getErrors } from "../../helpers/utils"
-
 // actions
-import customerActions from "../../store/customers/actions"
+import activityTypeActions from "../../store/activity_types/actions"
 
 // components
 import Breadcrumbs from "../../components/Breadcrumb"
@@ -25,7 +21,7 @@ import { IconLoading } from '../../components/Icons'
 import { ListTable, EditableForm } from "./components"
 
 
-let Customers = props => {
+let ActivityTypes = props => {
     const {
         getAll,
         create,
@@ -37,9 +33,8 @@ let Customers = props => {
         edit,
         list,
         remove,
+        auth,
     } = props
-
-    const err = getErrors(remove.errors)
 
     const [params, setParams] = useState({})
 
@@ -77,12 +72,6 @@ let Customers = props => {
         }
     }, [remove, getAll, params])
 
-    useEffect(() => {
-        if (remove.errors) {
-            setShowConfirmDeleteAlert(false)
-        }
-    }, [remove, getAll, params])
-
     const handleReload = props => {
         setParams(props)
         getAll(props)
@@ -110,7 +99,7 @@ let Customers = props => {
         <React.Fragment>
             {showCreatedAlert &&
                 <SweetAlert
-                    title="Cliente creado satisfactoriamente."
+                    title="Tipo de actividad creado satisfactoriamente."
                     success
                     confirmBtnBsStyle="success"
                     onConfirm={() => setShowCreatedAlert(false)}
@@ -118,7 +107,7 @@ let Customers = props => {
             }
             {showConfirmDeleteAlert &&
                 <SweetAlert
-                    title={`¿Está seguro de eliminar el Cliente: ${itemDelete.name}?`}
+                    title={`¿Está seguro de eliminar el Tipo de actividad: ${itemDelete.name}?`}
                     warning
                     showCancel
                     confirmBtnBsStyle="success"
@@ -131,7 +120,7 @@ let Customers = props => {
             }
             {showDeletedAlert &&
                 <SweetAlert
-                    title="Cliente eliminado satisfactoriamente."
+                    title="Tipo de actividad eliminado satisfactoriamente."
                     success
                     confirmBtnBsStyle="success"
                     onConfirm={() => setShowDeletedAlert(false)}
@@ -139,7 +128,7 @@ let Customers = props => {
             }
             {showUpdatedAlert &&
                 <SweetAlert
-                    title="Cliente actualizado satisfactoriamente."
+                    title="Tipo de actividad actualizado satisfactoriamente."
                     success
                     confirmBtnBsStyle="success"
                     onConfirm={() => setShowUpdatedAlert(false)}
@@ -147,35 +136,26 @@ let Customers = props => {
             }
             <div className="page-content">
                 <Container fluid>
-                    <Breadcrumbs title="Inicio" breadcrumbItem="Clientes" />
+                    <Breadcrumbs title="Inicio" breadcrumbItem="Tipos de actividad" />
 
                     <Row>
                         <Col>
                             <Card>
                                 <CardBody>
-                                    <Row>
-                                        <Col>
-                                            {err.generalErrors ?
-                                                err.generalErrors.map((error, key) =>
-                                                    <Alert key={key} color="danger">
-                                                        {error.message}
-                                                    </Alert>
-                                                ) : null
-                                            }
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-4">
-                                        <Col className="text-right">
-                                            <Button
-                                                color="success"
-                                                onClick={() => {
-                                                    setShowAddModal(true)
-                                                }}
-                                            >
-                                                <i className="fa fa-plus" /> Nuevo
-                                            </Button>
-                                        </Col>
-                                    </Row>
+                                    {_.get(auth.data, "is_superuser", false) &&
+                                        <Row className="mb-4">
+                                            <Col className="text-right">
+                                                <Button
+                                                    color="success"
+                                                    onClick={() => {
+                                                        setShowAddModal(true)
+                                                    }}
+                                                >
+                                                    <i className="fa fa-plus" /> Nuevo
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    }
                                     <Row>
                                         <Col>
                                             <ListTable
@@ -202,7 +182,7 @@ let Customers = props => {
                 size="lg"
             >
                 <div className="modal-header">
-                    <h5 className="modal-title mt-0">Agregar Cliente</h5>
+                    <h5 className="modal-title mt-0">Agregar Tipo de actividad</h5>
                     <button
                         type="button"
                         onClick={() => setShowAddModal(false)}
@@ -243,7 +223,7 @@ let Customers = props => {
                 size="lg"
             >
                 <div className="modal-header">
-                    <h5 className="modal-title mt-0">Editar Cliente: <strong>{_.get(detail.data, "name")}</strong></h5>
+                    <h5 className="modal-title mt-0">Editar Tipo de actividad: <strong>{_.get(detail.data, "name")}</strong></h5>
                     <button
                         type="button"
                         onClick={() => setShowEditModal(false)}
@@ -283,13 +263,14 @@ let Customers = props => {
 
 
 const mapStateToProps = ({
-    customers: {
+    activity_types: {
         original,
         detail,
         edit,
         list,
         remove
-    }
+    },
+    auth,
 }) => {
     return {
         original,
@@ -297,13 +278,14 @@ const mapStateToProps = ({
         edit,
         list,
         remove,
+        auth,
     }
 }
 
-export default Customers = connect(mapStateToProps, {
-    getAll: customerActions.getAllRequest,
-    create: customerActions.createRequest,
-    retrieve: customerActions.retrieveRequest,
-    update: customerActions.updateRequest,
-    destroy: customerActions.destroyRequest,
-})(Customers)
+export default ActivityTypes = connect(mapStateToProps, {
+    getAll: activityTypeActions.getAllRequest,
+    create: activityTypeActions.createRequest,
+    retrieve: activityTypeActions.retrieveRequest,
+    update: activityTypeActions.updateRequest,
+    destroy: activityTypeActions.destroyRequest,
+})(ActivityTypes)

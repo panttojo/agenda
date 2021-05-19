@@ -65,13 +65,6 @@ export const ListTable = props => {
     return (
         <Row>
             <Col>
-                {err.validationErrors ?
-                    err.validationErrors.filter(e => e.field === undefined).map((error, key) =>
-                        <Alert key={key} color="danger">
-                            {error.message}
-                        </Alert>
-                    ) : null
-                }
                 {err.generalErrors ?
                     err.generalErrors.map((error, key) =>
                         <Alert key={key} color="danger">

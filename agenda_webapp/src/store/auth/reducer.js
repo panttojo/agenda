@@ -21,7 +21,7 @@ const authUser = process.env.REACT_APP_LOCAL_STORAGE_USER
 initialState.data = localStorage.getItem(authUser) ? { ...JSON.parse(localStorage.getItem(authUser)) } : {}
 
 
-const users = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
 	switch (action.type) {
 		/*----------------------------------------------------------------------
 		| LOGIN
@@ -38,7 +38,7 @@ const users = (state = initialState, action) => {
 			const user = action.payload
 			localStorage.setItem(authUser, JSON.stringify(user))
 			state = {
-				...state,
+				...singleObj,
 				data: user,
 				loading: false,
 				success: true,
@@ -46,7 +46,7 @@ const users = (state = initialState, action) => {
 			break
 		case LOGIN_ERROR:
 			state = {
-				...state,
+				...singleObj,
 				loading: false,
 				errors: action.payload,
 				success: false,
@@ -57,7 +57,6 @@ const users = (state = initialState, action) => {
 		| LOGOUT
 		----------------------------------------------------------------------*/
 		case LOGOUT_REQUEST:
-			localStorage.removeItem(authUser)
 			state = {
 				...singleObj,
 				loading: true,
@@ -65,11 +64,12 @@ const users = (state = initialState, action) => {
 			}
 			break
 		case LOGOUT_SUCCESS:
+			localStorage.removeItem(authUser)
 			state = { ...initialState }
 			break
 		case LOGOUT_ERROR:
 			state = {
-				...state,
+				...singleObj,
 				loading: false,
 				errors: action.payload,
 				success: false,
@@ -86,4 +86,4 @@ const users = (state = initialState, action) => {
 	return state
 }
 
-export default users
+export default auth

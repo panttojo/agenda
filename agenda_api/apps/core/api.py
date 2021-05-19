@@ -1,3 +1,10 @@
+# Third Party Stuff
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import (
+    filters,
+    viewsets,
+)
+
 # Agenda Stuff
 from apps.base.api.mixins import (
     CustomModelViewSet,
@@ -15,6 +22,7 @@ from apps.core.models import (
 class CustomerViewSet(MultipleSerializerMixin, CustomModelViewSet):
     permission_classes = (CRUDModelPermissions,)
     serializer_class = serializers.CustomerSerializer
+    filterset_fields = ("seller",)
     serializer_classes = {
         "get_all": serializers.CustomerGetAllSerializer,
         "list": serializers.CustomerListSerializer,
@@ -22,13 +30,13 @@ class CustomerViewSet(MultipleSerializerMixin, CustomModelViewSet):
     }
 
     def get_queryset(self):
-        user = self.request.user
-        customers = Customer.objects.all()
+        seller = self.request.user
+        queryset = Customer.objects.all()
 
-        if not user.is_superuser:
-            customers = customers.filter(user=user)
+        if not seller.is_superuser:
+            queryset = queryset.filter(seller=seller)
 
-        return customers
+        return queryset
 
 
 class ActivityTypeViewSet(MultipleSerializerMixin, CustomModelViewSet):
@@ -40,13 +48,26 @@ class ActivityTypeViewSet(MultipleSerializerMixin, CustomModelViewSet):
     }
 
 
-class ActivityViewSet(MultipleSerializerMixin, CustomModelViewSet):
+class ActivityViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
     serializer_class = serializers.ActivitySerializer
     permission_classes = (CRUDModelPermissions,)
+    filter_fields = {
+        "type": ["exact"],
+        "schedule_at": ["gte", "lte"],
+        "finish_at": ["gte", "lte"],
+    }
     serializer_classes = {
-        "get_all": serializers.ActivityGetAllSerializer
+        "get_all": serializers.ActivityGetAllSerializer,
+        "list": serializers.ActivityRetrieveSerializer,
+        "retrieve": serializers.ActivityRetrieveSerializer,
     }
 
     def get_queryset(self):
-        queryset = Activity.objects.owner(seller=self.request.user).prefetch_related("type", "customer", "seller")
+        seller = self.request.user
+        queryset = Activity.objects.all().prefetch_related("type", "customer", "seller")
+
+        if not seller.is_superuser:
+            queryset = queryset.filter(seller=seller, status=Activity.ACTIVE)
+
         return queryset
