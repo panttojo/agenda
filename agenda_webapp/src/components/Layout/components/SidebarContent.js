@@ -1,7 +1,8 @@
 import React, { Component } from "react"
+import _ from "lodash"
 import MetisMenu from "metismenujs"
-import { withRouter } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { connect } from 'react-redux'
+import { Link, withRouter } from "react-router-dom"
 
 
 class SidebarContent extends Component {
@@ -67,6 +68,8 @@ class SidebarContent extends Component {
     }
 
     render() {
+        const { auth } = this.props
+
         return (
             <div id="sidebar-menu">
                 <ul className="metismenu list-unstyled" id="side-menu">
@@ -78,26 +81,30 @@ class SidebarContent extends Component {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/vendedores" className="waves-effect">
-                            <i className="fa fa-tachometer-alt"></i>
-                            <span>Vendedores</span>
+                        <Link to="/#" className="has-arrow waves-effect">
+                            <i className="fa fa-list"></i>
+                            <span>Catalogo</span>
                         </Link>
+                        <ul className="sub-menu" aria-expanded="false">
+                            {_.get(auth.data, "is_superuser", false) &&
+                                <li>
+                                    <Link to="/vendedores" className="waves-effect">Vendedores</Link>
+                                </li>
+                            }
+                            <li>
+                                <Link to="/tipos-de-actividad" className="waves-effect">Tipos de Actividad</Link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <Link to="/clientes" className="waves-effect">
-                            <i className="fa fa-tachometer-alt"></i>
+                            <i className="fa fa-users"></i>
                             <span>Clientes</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/tipos-de-actividad" className="waves-effect">
-                            <i className="fa fa-tachometer-alt"></i>
-                            <span>Tipos de Actividad</span>
-                        </Link>
-                    </li>
-                    <li>
                         <Link to="/actividades" className="waves-effect">
-                            <i className="fa fa-tachometer-alt"></i>
+                            <i className="fa fa-tasks"></i>
                             <span>Actividades</span>
                         </Link>
                     </li>
@@ -107,4 +114,10 @@ class SidebarContent extends Component {
     }
 }
 
-export default withRouter(SidebarContent)
+const mapStateToProps = ({ auth }) => {
+    return {
+        auth
+    }
+}
+
+export default withRouter(connect(mapStateToProps, {})(SidebarContent));

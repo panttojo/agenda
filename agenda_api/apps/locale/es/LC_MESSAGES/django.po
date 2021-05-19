@@ -1787,8 +1787,8 @@ msgstr ""
 msgid "%(prog)s: error: %(message)s\n"
 msgstr ""
 
-#~ msgid "You do not have permission to perform this action."
-#~ msgstr "No tienes permiso para realizar esta acción."
+msgid "You do not have permission to perform this action."
+msgstr "No tienes permiso para realizar esta acción."
 
-#~ msgid "This field may not be null."
-#~ msgstr "Este campo no puede quedar vacío."
+msgid "This field may not be null."
+msgstr "Este campo no puede quedar vacío."
