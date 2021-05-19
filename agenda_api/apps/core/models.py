@@ -46,11 +46,11 @@ class ActivityType(TimeStampedUUIDModel):
 
 class Activity(TimeStampedUUIDModel):
     ACTIVE = "active"
-    DEACTIVATED = "deactivated"
+    CANCELED = "canceled"
 
     STATUS_CHOICES = (
         (ACTIVE, _("Active")),
-        (DEACTIVATED, _("Deactivated")),
+        (CANCELED, _("Canceled")),
     )
 
     schedule_at = models.DateTimeField(_("schedule at"))

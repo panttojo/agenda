@@ -29,8 +29,6 @@ export let Filters = props => {
         handleOnChangeFilter({
             type: _.get(type, "value", ""),
             schedule_at__gte: startAt,
-            // schedule_at__lte: endAt,
-            // finish_at__gte: startAt,
             finish_at__lte: endAt,
         })
     }, [type, startAt, endAt])

@@ -1,3 +1,6 @@
+# Standard Library
+import logging
+
 # Third Party Stuff
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import (
@@ -6,6 +9,7 @@ from rest_framework import (
 )
 
 # Agenda Stuff
+from apps.base import response
 from apps.base.api.mixins import (
     CustomModelViewSet,
     MultipleSerializerMixin,
@@ -17,6 +21,8 @@ from apps.core.models import (
     ActivityType,
     Customer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class CustomerViewSet(MultipleSerializerMixin, CustomModelViewSet):
@@ -71,3 +77,13 @@ class ActivityViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
             queryset = queryset.filter(seller=seller, status=Activity.ACTIVE)
 
         return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        try:
+            instance.status = Activity.CANCELED
+            instance.save()
+        except Exception as exc:
+            logger.error(exc)
+
+        return response.NoContent()

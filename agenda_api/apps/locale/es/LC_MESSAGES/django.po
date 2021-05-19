@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-19 01:22+0000\n"
+"POT-Creation-Date: 2021-05-19 04:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,83 +46,83 @@ msgstr ""
 msgid "Precondition error"
 msgstr ""
 
-#: apps/core/models.py:14 apps/core/models.py:27
+#: apps/core/models.py:15 apps/core/models.py:28
 msgid "name"
 msgstr "nombre"
 
-#: apps/core/models.py:14
+#: apps/core/models.py:15
 msgid "full name"
 msgstr "nombre completo"
 
-#: apps/core/models.py:18 apps/core/models.py:61
+#: apps/core/models.py:19 apps/core/models.py:62
 msgid "customer"
 msgstr "cliente"
 
-#: apps/core/models.py:19
+#: apps/core/models.py:20
 msgid "customers"
 msgstr "clientes"
 
-#: apps/core/models.py:29
+#: apps/core/models.py:30
 msgid "value"
 msgstr "valor"
 
-#: apps/core/models.py:29
+#: apps/core/models.py:30
 msgid "value in minutes."
 msgstr "valor en minutos"
 
-#: apps/core/models.py:32
+#: apps/core/models.py:33
 msgid "Activity Type"
 msgstr "Tipo de actividad"
 
-#: apps/core/models.py:33
+#: apps/core/models.py:34
 msgid "Activity Types"
 msgstr "Tipos de actividades"
 
-#: apps/core/models.py:38
+#: apps/core/models.py:39
 msgid "minutes"
 msgstr "minutos"
 
-#: apps/core/models.py:51
+#: apps/core/models.py:52
 msgid "Active"
 msgstr "Activo"
 
-#: apps/core/models.py:52
-msgid "Deactivated"
-msgstr "Desactivado"
+#: apps/core/models.py:53
+msgid "Canceled"
+msgstr "Cancelado"
 
-#: apps/core/models.py:55
+#: apps/core/models.py:56
 msgid "schedule at"
 msgstr "programado a las"
 
-#: apps/core/models.py:56
+#: apps/core/models.py:57
 msgid "finish at"
 msgstr ""
 
-#: apps/core/models.py:57
+#: apps/core/models.py:58
 msgid "notes"
 msgstr "notas"
 
-#: apps/core/models.py:58
+#: apps/core/models.py:59
 msgid "status"
 msgstr ""
 
-#: apps/core/models.py:60
+#: apps/core/models.py:61
 msgid "activity type"
 msgstr "tipo de actividad"
 
-#: apps/core/models.py:63
+#: apps/core/models.py:64
 msgid "seller"
 msgstr "Vendedor"
 
-#: apps/core/models.py:66
+#: apps/core/models.py:67
 msgid "Activity"
 msgstr "Actividad"
 
-#: apps/core/models.py:67
+#: apps/core/models.py:68
 msgid "Activities"
 msgstr "Actividades"
 
-#: apps/core/serializers.py:103
+#: apps/core/serializers.py:108
 msgid "There is currently an activity scheduled for this date."
 msgstr "Actualmente existe una actividad agendada para esta fecha."
 
@@ -1787,8 +1787,8 @@ msgstr ""
 msgid "%(prog)s: error: %(message)s\n"
 msgstr ""
 
-msgid "You do not have permission to perform this action."
-msgstr "No tienes permiso para realizar esta acción."
+#~ msgid "You do not have permission to perform this action."
+#~ msgstr "No tienes permiso para realizar esta acción."
 
-msgid "This field may not be null."
-msgstr "Este campo no puede quedar vacío."
+#~ msgid "This field may not be null."
+#~ msgstr "Este campo no puede quedar vacío."
