@@ -18,7 +18,8 @@ import { CollapsableBox } from "../../../components/Collapsable"
 export let Filters = props => {
     const {
         activity_types,
-        handleOnChangeFilter
+        handleOnChangeFilter,
+        showDateRange,
     } = props
 
     const [type, setType] = useState(null)
@@ -34,46 +35,50 @@ export let Filters = props => {
     }, [type, startAt, endAt])
 
     return (
-        <CollapsableBox>
-            <Row className="mt-4">
-                <Col>
-                    <FormGroup>
-                        <Label htmlFor="start_at">Inicio</Label>
-                        <InputGroup>
-                            <DatePicker
-                                className="form-control"
-                                onChange={setStartAt}
-                                timeIntervals={15}
-                                showTimeSelect
-                                selectsStart
-                                locale="es"
-                                dateFormat="d MMMM, yyyy h:mm aa"
-                                selected={startAt}
-                                maxDate={endAt}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                        <Label htmlFor="end_at">Fin</Label>
-                        <InputGroup>
-                            <DatePicker
-                                className="form-control"
-                                onChange={setEndAt}
-                                timeIntervals={15}
-                                showTimeSelect
-                                selectsStart
-                                selectsEnd
-                                locale="es"
-                                dateFormat="d MMMM, yyyy h:mm aa"
-                                selected={endAt}
-                                startDate={startAt}
-                                minDate={startAt}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                </Col>
+        <>
+            <h5>Filtrar por:</h5>
+            <hr />
+            <Row className="mb-4">
+                {showDateRange && <>
+                    <Col>
+                        <FormGroup>
+                            <Label htmlFor="start_at">Inicio</Label>
+                            <InputGroup>
+                                <DatePicker
+                                    className="form-control"
+                                    onChange={setStartAt}
+                                    timeIntervals={15}
+                                    showTimeSelect
+                                    selectsStart
+                                    locale="es"
+                                    dateFormat="d MMMM, yyyy h:mm aa"
+                                    selected={startAt}
+                                    maxDate={endAt}
+                                />
+                            </InputGroup>
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label htmlFor="end_at">Fin</Label>
+                            <InputGroup>
+                                <DatePicker
+                                    className="form-control"
+                                    onChange={setEndAt}
+                                    timeIntervals={15}
+                                    showTimeSelect
+                                    selectsStart
+                                    selectsEnd
+                                    locale="es"
+                                    dateFormat="d MMMM, yyyy h:mm aa"
+                                    selected={endAt}
+                                    startDate={startAt}
+                                    minDate={startAt}
+                                />
+                            </InputGroup>
+                        </FormGroup>
+                    </Col>
+                </>}
                 <Col>
                     <Label htmlFor="type">Tipo</Label>
                     <Select
@@ -90,6 +95,6 @@ export let Filters = props => {
                     />
                 </Col>
             </Row>
-        </CollapsableBox>
+        </>
     )
 }

@@ -128,6 +128,8 @@ class ActivityGetAllSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "schedule_at",
+            "finish_at",
+            "status",
             "customer",
             "type",
         )

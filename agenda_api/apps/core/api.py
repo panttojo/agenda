@@ -7,6 +7,7 @@ from rest_framework import (
     filters,
     viewsets,
 )
+from rest_framework.decorators import action
 
 # Agenda Stuff
 from apps.base import response
@@ -81,6 +82,13 @@ class ActivityViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
             queryset = queryset.filter(seller=seller, status=Activity.ACTIVE)
 
         return queryset
+
+    @action(detail=False, methods=["get"], url_path="all", url_name="all")
+    def get_all(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer_class()
+        serializer = serializer(queryset, many=True)
+        return response.Ok(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

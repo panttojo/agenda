@@ -102,11 +102,20 @@ class SidebarContent extends Component {
                             <span>Clientes</span>
                         </Link>
                     </li>
+
                     <li>
-                        <Link to="/actividades" className="waves-effect">
+                        <Link to="/#" className="has-arrow waves-effect">
                             <i className="fa fa-tasks"></i>
                             <span>Actividades</span>
                         </Link>
+                        <ul className="sub-menu" aria-expanded="false">
+                            <li>
+                                <Link to="/tabla-de-actividades" className="waves-effect">Tabla</Link>
+                            </li>
+                            <li>
+                                <Link to="/calendario-de-actividades" className="waves-effect">Calendario</Link>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

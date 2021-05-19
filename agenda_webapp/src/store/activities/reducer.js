@@ -83,9 +83,10 @@ const users = (state = initialState, action) => {
 		----------------------------------------------------------------------*/
 		case GET_ALL_OPTIONS_ACTIVITIES_REQUEST:
 			state = {
-				...state,
+				...initialState,
 				options: {
 					...singleObj,
+					data: [],
 					loading: true,
 					success: false,
 				}
