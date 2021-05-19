@@ -77,13 +77,12 @@ export let EditableForm = props => {
                 </Col>
                 <Col>
                     <FormGroup>
-                        <Label htmlFor="email">Email <span className="text-danger">*</span></Label>
+                        <Label htmlFor="email">Email</Label>
                         <Input
                             type="email"
                             name="email"
                             id="email"
-                            required
-                            innerRef={register({ required: true })}
+                            innerRef={register}
                         />
                         {errors.email && errors.email.type === "required" && (
                             <FormText color="danger">
