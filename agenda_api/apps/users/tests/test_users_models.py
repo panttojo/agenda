@@ -14,11 +14,11 @@ class UserModelTestCase(TestCase):
         assert u.username == "test"
         assert u.get_full_name() == "F B"
         assert u.get_short_name() == "F"
-        assert str(u) == str(u.id)
+        assert str(u) == str(u.username)
 
     def test_create_super_user(self):
         u = User.objects.create_superuser(username="test", password="abc")
         assert u.is_active is True
         assert u.is_staff is True
         assert u.is_superuser is True
-        assert str(u) == str(u.id)
+        assert str(u) == str(u.username)

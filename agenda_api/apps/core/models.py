@@ -27,7 +27,8 @@ class Customer(TimeStampedUUIDModel):
 class ActivityType(TimeStampedUUIDModel):
     name = models.CharField(_("name"), max_length=120)
     value = models.PositiveSmallIntegerField(
-        _("value"), validators=[MinValueValidator(1)], help_text=_("value in minutes."))
+        _("value"), validators=[MinValueValidator(1)], help_text=_("value in minutes.")
+    )
 
     class Meta:
         verbose_name = _("Activity Type")
@@ -61,7 +62,8 @@ class Activity(TimeStampedUUIDModel):
     type = models.ForeignKey(ActivityType, on_delete=models.CASCADE, verbose_name=_("activity type"))
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name=_("customer"))
     seller = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, verbose_name=_("seller"), related_name="activities")
+        User, on_delete=models.CASCADE, blank=True, verbose_name=_("seller"), related_name="activities"
+    )
 
     class Meta:
         verbose_name = _("Activity")

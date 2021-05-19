@@ -40,7 +40,11 @@ class MultipleSerializerMixin(object):
 
 
 class CustomModelViewSet(viewsets.ModelViewSet):
-    filter_backends = (DjangoFilterBackend, InsensitiveOrderingFilter, SearchFilter,)
+    filter_backends = (
+        DjangoFilterBackend,
+        InsensitiveOrderingFilter,
+        SearchFilter,
+    )
     ordering_fields = "__all__"
 
     @action(detail=False, methods=["get"], url_path="all", url_name="all")

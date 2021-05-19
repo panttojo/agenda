@@ -28,7 +28,11 @@ handler500 = base_views.server_error
 # ==============================================================================
 urlpatterns = (
     [
-        re_path(r"^(?P<filename>(robots.txt)|(humans.txt))$", base_views.root_txt_files, name="root-txt-files",),
+        re_path(
+            r"^(?P<filename>(robots.txt)|(humans.txt))$",
+            base_views.root_txt_files,
+            name="root-txt-files",
+        ),
         # Rest API
         path("api/", include(api_urls)),
         # Django Admin

@@ -14,7 +14,10 @@ class ActivityTypeAdmin(admin.ModelAdmin):
 @admin.register(models.Activity)
 class ActivityAdmin(admin.ModelAdmin):
     list_display = ("id", "seller", "customer", "schedule_at", "type", "status")
-    list_filter = ("status", "type",)
+    list_filter = (
+        "status",
+        "type",
+    )
 
 
 class ActivityInline(admin.TabularInline):

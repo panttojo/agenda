@@ -18,10 +18,7 @@ def validate_activity(instance, seller, data):
     end_at = data["schedule_at"] + timedelta(minutes=data["type"].value) - timedelta(milliseconds=1)
 
     intervals = [start_at, end_at]
-    filters = (
-        models.Q(schedule_at__range=intervals)
-        | models.Q(finish_at__range=intervals)
-    )
+    filters = models.Q(schedule_at__range=intervals) | models.Q(finish_at__range=intervals)
 
     some_activity = activities.filter(filters, status=Activity.ACTIVE).exists()
 

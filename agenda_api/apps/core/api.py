@@ -55,7 +55,11 @@ class ActivityTypeViewSet(MultipleSerializerMixin, CustomModelViewSet):
 
 
 class ActivityViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
-    filter_backends = (DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
+    filter_backends = (
+        DjangoFilterBackend,
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    )
     serializer_class = serializers.ActivitySerializer
     permission_classes = (CRUDModelPermissions,)
     filter_fields = {
