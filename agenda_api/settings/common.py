@@ -21,7 +21,6 @@ INSTALLED_APPS = (
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.postgres",
-    "django_sites",  # http://niwinz.github.io/django-sites/latest/
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
@@ -32,7 +31,6 @@ INSTALLED_APPS = (
     "rest_framework",  # http://www.django-rest-framework.org/
     "rest_framework_swagger",
     "corsheaders",  # https://github.com/ottoyiu/django-cors-headers/
-    "mail_templated",  # https://github.com/artemrizhov/django-mail-templated
     "django_extensions",  # http://django-extensions.readthedocs.org/
     "django_filters",  # https://github.com/carltongibson/django-filter
 )
@@ -110,29 +108,6 @@ SWAGGER_SETTINGS = {
         "api_key": {"type": "apiKey", "name": "Authorization", "in": "header"},
     },
 }
-
-# DJANGO_SITES
-# ------------------------------------------------------------------------------
-# see: http://django-sites.readthedocs.org
-SITE_SCHEME = env("SITE_SCHEME", default="http")
-SITE_DOMAIN = env("SITE_DOMAIN", default="localhost:8000")
-SITE_NAME = env("SITE_NAME", default="Agenda API")
-
-# This is used in-case of the frontend is deployed at a different url than this django app.
-FRONTEND_SITE_SCHEME = env("FRONTEND_SITE_SCHEME", default="http")
-FRONTEND_SITE_DOMAIN = env("FRONTEND_SITE_DOMAIN", default="localhost:3000")
-FRONTEND_SITE_NAME = env("FRONTEND_SITE_NAME", default="Agenda")
-
-SITES = {
-    "current": {"domain": SITE_DOMAIN, "scheme": SITE_SCHEME, "name": SITE_NAME},
-    "frontend": {
-        "domain": FRONTEND_SITE_DOMAIN,
-        "scheme": FRONTEND_SITE_SCHEME,
-        "name": FRONTEND_SITE_NAME,
-    },
-}
-SITE_ID = "current"
-
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------

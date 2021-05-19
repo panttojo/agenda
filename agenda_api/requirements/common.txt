@@ -6,8 +6,6 @@ Django==3.1.8
 # -------------------------------------
 argon2-cffi==20.1.0
 django-environ==0.4.5
-# For Django 3.x
--e git+git://github.com/CuriousLearner/django-sites@upgrade-django-3.x#egg=django_sites
 python-dotenv==0.17.0
 django-cors-headers==3.7.0
 
@@ -36,7 +34,6 @@ django-log-request-id==1.6.0
 # Auth Stuff
 # -------------------------------------
 PyJWT==2.0.1
-django-mail-templated==2.6.5
 
 # Generating DB Schema
 # --------------------------------------
