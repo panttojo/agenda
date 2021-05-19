@@ -12,6 +12,7 @@ from email.utils import getaddresses
 from .common import *  # noqa F405
 from .common import (
     DATABASES,
+    MIDDLEWARE,
     REST_FRAMEWORK,
     TEMPLATES,
     env,
@@ -26,6 +27,13 @@ SITE_DOMAIN = env("SITE_DOMAIN")
 # "*" matches anything, ".example.com" matches example.com and all subdomains
 # See https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[SITE_DOMAIN])
+
+
+# MEDIA & STATIC CONFIGURATION
+# ------------------------------------------------------------------------------
+# STATIC_ROOT = "/app/static/"
+# MEDIA_ROOT = "/app/media/"
+
 
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -66,8 +74,16 @@ if SITE_SCHEME == "https":
     CSRF_COOKIE_SECURE = True
 
 # Static Assets
-# ------------------------
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+# ------------------------------------------------------------------------------
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+# MIDDLEWARE
+# ------------------------------------------------------------------------------
+MIDDLEWARE += [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+]
+
 
 # EMAIL
 # ------------------------------------------------------------------------------

@@ -9,3 +9,33 @@ services:
       - POSTGRES_USER=agenda
       - POSTGRES_PASSWORD=secret
       - POSTGRES_DB=agenda_db
+
+  agenda_api:
+    container_name: agenda_api
+    build: ./agenda_api
+    volumes:
+      - ./agenda_api/:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - agenda_db
+    environment:
+      - DJANGO_DEBUG=True
+      - DATABASE_URL=postgres://agenda:secret@agenda_db:5432/agenda_db
+      - SITE_SCHEME=http
+      - SITE_DOMAIN=localhost:8000
+      - ALLOWED_HOSTS=localhost,localhost:8000,localhost:3000
+      - DJANGO_ADMINS=panttojo@yandex.com
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000
+      - DJANGO_SECRET_KEY='d4zm0auhm5zf+#)l$$(5839-bhe%q+nl2tn3kz7sjf5p2@#0w2('
+      - EMAIL_HOST=""
+      - EMAIL_HOST_PASSWORD=""
+      - EMAIL_HOST_USER=""
+
+  agenda_webapp:
+    container_name: agenda_webapp
+    build: ./agenda_webapp
+    ports:
+      - "3000:80"
+    depends_on:
+      - agenda_api

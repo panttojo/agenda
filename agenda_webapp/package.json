@@ -1,6 +1,7 @@
 {
   "name": "agenda",
   "version": "0.0.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@emotion/css": "^11.1.3",
