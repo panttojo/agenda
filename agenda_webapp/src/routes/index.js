@@ -10,7 +10,7 @@ import ActivityTypes from "../pages/ActivityTypes"
 
 
 const authProtectedRoutes = [
-	{ path: "/dasboard", component: Dashboard },
+	{ path: "/dashboard", component: Dashboard },
 	{ path: "/vendedores", component: Users },
 	{ path: "/clientes", component: Customers },
 	{ path: "/calendario-de-actividades", component: CalendarView },

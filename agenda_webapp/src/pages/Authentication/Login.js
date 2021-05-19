@@ -45,7 +45,7 @@ export let Login = props => {
 
     useEffect(() => {
         if (auth_token) {
-            history.push("/dashboard")
+            history.push("/")
         }
     }, [auth_token, history])
 
@@ -167,4 +167,4 @@ const mapStatetoProps = state => {
 
 Login = withRouter(connect(mapStatetoProps, {
     login: authActions.loginRequest
-})(Login));
+})(Login))

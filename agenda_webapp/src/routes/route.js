@@ -1,21 +1,24 @@
 import React from "react";
+import _ from "lodash"
+import { connect } from "react-redux"
 import { Route, Redirect } from "react-router-dom";
 
 const authUser = process.env.REACT_APP_LOCAL_STORAGE_USER
 
-const AppRoute = ({
+let AppRoute = ({
 	component: Component,
 	layout: Layout,
 	isAuthProtected,
+	auth,
 	...rest
 }) => {
-	const user = JSON.parse(localStorage.getItem(authUser))
+	const user = auth.data
 	return (
 		<Route
 			{...rest}
 			render={props => {
 
-				if (isAuthProtected && !user) {
+				if (isAuthProtected && !_.get(user, "id", false)) {
 					return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
 				}
 
@@ -28,5 +31,10 @@ const AppRoute = ({
 		/>
 	)
 }
+const mapStatetoProps = ({ auth }) => {
+	return {
+		auth
+	}
+}
 
-export default AppRoute;
+export default AppRoute = connect(mapStatetoProps, {})(AppRoute);
