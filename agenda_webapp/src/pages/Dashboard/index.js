@@ -18,7 +18,7 @@ const Dashboard = props => {
     return (
         <React.Fragment>
             <div className="page-content">
-                <Container>
+                <Container fluid>
                     <Breadcrumbs title="Inicio" breadcrumbItem="Dashboard" />
                 </Container>
             </div>
